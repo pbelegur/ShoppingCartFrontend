@@ -12,6 +12,7 @@ export default function Home() {
   const [cart, setCart] = useState([]);
   const [data,setData] = useState([]);
   useEffect(() => {
+
     fetch('https://karinialassignment-production.up.railway.app/api/data')
       .then(res => res.json())
       .then(data => {
@@ -19,6 +20,17 @@ export default function Home() {
         setFilteredProducts(data);
         console.log('Backend says:', data);
       });
+      fetch('https://karinialassignment-production.up.railway.app/api/clearCart', {
+          method: 'DELETE',
+      })
+          .then(res => res.json())
+          .then(data => {
+              console.log(`Deleted ${data.deletedCount} items from cart`);
+              // Update UI to reflect empty cart
+          })
+          .catch(error => {
+              console.error('Error clearing cart:', error);
+          });
   }, []);
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
@@ -38,15 +50,28 @@ export default function Home() {
       .then((data) => {
         setFilteredProducts(data);
       });
-    
+
   };
 
   const handleAdd = (newItem) => {
-    setCart((prevItems) => [...prevItems, newItem]);
+
+      fetch('https://karinialassignment-production.up.railway.app/api/cart', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newItem)
+      })
+          .then(res => res.json())
+          .then(data => {
+              setCart((prevItems) => [...prevItems, newItem]);
+              console.log('Success:', data);})
+          .catch((error) => {
+              console.error('Error:', error);
+          });
   };
 
   const handleCart = () => {
-    localStorage.setItem("itemsInCart", JSON.stringify(cart));
     router.push("/cart");
   };
 
@@ -54,7 +79,7 @@ export default function Home() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div></div>
-        <div className="flex-1 max-w-2xl mx-4">
+        <div>
           <input
             type="text"
             value={searchTerm}
@@ -68,8 +93,8 @@ export default function Home() {
             onClick={handleCart}
             src="/cart.jpg"
             alt="Shopping Cart"
-            width={40}
-            height={40}
+            width={100}
+            height={80}
             className="object-contain"
           />
           {cart.length > 0 && (
@@ -93,13 +118,13 @@ export default function Home() {
                   />
                 )}
                 <div className="p-4">
-                  <p className="font-semibold text-xl">{obj["Title"] || "Untitled Product"}</p>
-                  <p className="text-sm text-gray-600">SKU: {obj["Variant SKU"]}</p>
-                  <p className="font-bold text-lg mt-2">${obj["Variant Price"]}</p>
+                  <p>{obj["Title"] || "Untitled Product"}</p>
+                  <p>SKU: {obj["Variant SKU"]}</p>
+                  <p>${obj["Variant Price"]}</p>
                   <button
+                      className={styles.addToCartBtn}
                     onClick={() => handleAdd(obj)}
-                    className="mt-4 w-full py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors"
-                  >
+                    >
                     Add To Cart
                   </button>
                 </div>
@@ -108,7 +133,7 @@ export default function Home() {
           </div>
 
         ) : (
-          <p className="text-center p-8 text-gray-500">NO RESULTS FOUND</p>
+          <p>NO RESULTS FOUND</p>
         )}
       </main>
     </div>
