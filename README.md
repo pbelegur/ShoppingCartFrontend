@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shopping Cart Interface with Next.js
+
+This project is a single-page shopping interface developed using **Next.js**. It enables users to browse products, search by title or SKU, add items to a shopping cart, and manage those items before proceeding to checkout.
+
+## Project Overview
+
+The project consists of two key pages:
+
+* **Home Page**: Displays products and allows users to search and add them to the cart.
+* **Cart Page**: Displays selected items, enables removal, and shows an order summary.
+
+## Features
+
+### Home Page
+
+* Fetches and displays products from a backend API.
+* Allows searching for products by title or SKU.
+* Provides an interface to add products to a cart.
+* Includes a cart icon with an item count and navigation to the cart page.
+* Automatically clears the cart upon loading the page.
+
+### Cart Page
+
+* Fetches cart contents from the backend.
+* Displays all items in the cart with image, title, SKU, and price.
+* Allows users to remove individual items from the cart.
+* Calculates and displays the total cost of items.
+* Includes navigation to proceed to checkout or return to the home page.
+
+## API Endpoints
+
+All API requests are routed to:
+
+https://karinialassignment-production.up.railway.app
+
+### Endpoints Used
+
+* `GET /api/data` — Fetch all products.
+* `POST /api/search` — Search products by SKU or title.
+* `POST /api/cart` — Add a product to the cart.
+* `GET /api/cart` — Retrieve items currently in the cart.
+* `DELETE /api/cart` — Remove a specific item from the cart.
+* `DELETE /api/clearCart` — Clear all items from the cart on page load.
+
+## Technology Stack
+
+* **Next.js** (App Router, Client Components)
+* **React** (`useState`, `useEffect`)
+* **CSS Modules** for styling
+* **Node.js/Express** (backend, assumed)
+* **Railway** for backend deployment
+* **Vercel** for FrontEnd deployment
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
+   git clone <repository-url>
+   cd <project-directory>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Install dependencies**
+   npm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Run the development server**
+   npm run dev
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+4. **Access the application**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   Open a browser and go to: `https://shopping-cart-frontend-theta.vercel.app/`
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Ensure the backend API is deployed and accessible before running the application.
+* Product objects should contain the following fields: `"Image Src"`, `"Title"`, `"Variant SKU"`, and `"Variant Price"`.
