@@ -1,0 +1,65 @@
+/* page.module.css */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mainWrapper {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+}
+.productgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  padding: 20px;
+  justify-items: center;
+}
+
+.productcard {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: center;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 20px;
+}
+
+.cartIcon {
+  position: relative; /* ⬅️ required for badge to position inside this box */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.cartCount {
+  position: absolute;
+  top: -8px;     /* move it closer or farther vertically */
+  right: -8px;   /* move it left to sit tighter to the image */
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 6px;
+  font-size: 12px;
+  line-height: 1;
+  min-width: 20px;
+  text-align: center;
+}
+
