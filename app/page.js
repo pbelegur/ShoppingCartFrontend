@@ -10,13 +10,11 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [data,setData] = useState([]);
+  // react function that gets automatically triggerred on page load.
   useEffect(() => {
-
     fetch('https://karinialassignment-production.up.railway.app/api/data')
       .then(res => res.json())
       .then(data => {
-        setData(data);
         setFilteredProducts(data);
         console.log('Backend says:', data);
       });
@@ -39,12 +37,12 @@ export default function Home() {
       return;
     }
 
-    fetch('https://karinialassignment-production.up.railway.app/api/search', {
+    fetch('https://karinialassignment-production.up.railway.app/api/search',  {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ searchTerm }),
+      body: JSON.stringify({ searchTerm }), // request_ body
     })
       .then((res) => res.json())
       .then((data) => {
